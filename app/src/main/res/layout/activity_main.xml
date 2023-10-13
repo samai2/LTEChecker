@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/send_statistic"
+        style="@style/Buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobil_data_hint"
+        android:backgroundTint="@color/primary_light"
+        android:text="Send statistic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_title"
+        android:textSize="44sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/instruction"
+
+        style="@style/InfoMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="24dp"
+        android:text="@string/instruction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/wifi_section_title"
+        style="@style/SectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/instruction"
+        android:layout_marginTop="16dp"
+        android:text="@string/wifi_section_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instruction" />
+
+    <TextView
+        android:id="@+id/wifiHint"
+        style="@style/InfoMessage.SectionHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wifi_section_title"
+        android:text="@string/wifi_section_hint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_section_title" />
+
+
+    <Button
+        android:id="@+id/wifiStatus"
+        style="@style/Buttons.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/mobil_data_title"
+        android:layout_below="@id/instruction"
+        android:text="@string/disabled"
+        app:layout_constraintBottom_toTopOf="@+id/mobil_data_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instruction" />
+
+    <TextView
+        android:id="@+id/mobil_data_title"
+        style="@style/SectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/mobile_data_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifiHint" />
+
+    <TextView
+        android:id="@+id/mobil_data_hint"
+        style="@style/InfoMessage.SectionHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobil_data_title"
+        android:text="@string/mobile_data_hint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobil_data_title" />
+
+    <Button
+        android:id="@+id/mobile_data_status"
+        style="@style/Buttons.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/check_network"
+        android:layout_below="@id/wifiHint"
+        android:layout_alignParentEnd="true"
+
+        android:text="@string/disabled"
+        app:layout_constraintBottom_toBottomOf="@+id/mobil_data_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifiStatus" />
+
+    <Button
+        android:id="@+id/check_network"
+        style="@style/Buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobil_data_hint"
+        android:backgroundTint="@color/primary_light"
+        android:text="@string/check_network"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobil_data_hint" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/Buttons"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/check_network"
+        android:layout_gravity="center_horizontal"
+
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_network" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="visible"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/instruction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

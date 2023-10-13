@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">LTEChecker</string>
+    <string name="app_title">LTE checker</string>
+    <string name="instruction">Before start, please, activate WiFi and mobile data on your phone</string>
+    <string name="wifi_section_title">WiFi</string>
+    <string name="wifi_section_hint">please, enable WiFi</string>
+    <string name="mobile_data_title">Mobile Data</string>
+    <string name="disabled">DISABLED</string>
+    <string name="mobile_data_hint">Please, enable Mobile data</string>
+    <string name="check_network">Check network</string>
+</resources>
