@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/mobil_data_hint"
         android:backgroundTint="@color/primary_light"
-        android:text="Send statistic"
+        android:text="@string/send_statistic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
@@ -50,13 +50,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instruction" />
 
-    <TextView
+    <com.ale.ltechecker.guielements.ResizeTextView
         android:id="@+id/wifiHint"
         style="@style/InfoMessage.SectionHint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/wifi_section_title"
         android:text="@string/wifi_section_hint"
+        app:layout_constraintEnd_toStartOf="@+id/wifiStatus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifi_section_title" />
 
@@ -71,6 +74,8 @@
         android:text="@string/disabled"
         app:layout_constraintBottom_toTopOf="@+id/mobil_data_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/wifiHint"
         app:layout_constraintTop_toBottomOf="@+id/instruction" />
 
     <TextView
@@ -83,13 +88,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wifiHint" />
 
-    <TextView
+    <com.ale.ltechecker.guielements.ResizeTextView
         android:id="@+id/mobil_data_hint"
         style="@style/InfoMessage.SectionHint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mobil_data_title"
         android:text="@string/mobile_data_hint"
+        app:layout_constraintEnd_toStartOf="@+id/mobile_data_status"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mobil_data_title" />
 
@@ -105,6 +113,8 @@
         android:text="@string/disabled"
         app:layout_constraintBottom_toBottomOf="@+id/mobil_data_hint"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mobil_data_hint"
         app:layout_constraintTop_toBottomOf="@+id/wifiStatus" />
 
     <Button
@@ -137,12 +147,20 @@
         android:layout_height="1dp"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="15dp"
-        android:visibility="visible"
         android:background="@color/black"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/instruction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/versionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

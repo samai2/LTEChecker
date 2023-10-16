@@ -8,4 +8,5 @@
     <string name="disabled">DISABLED</string>
     <string name="mobile_data_hint">Please, enable Mobile data</string>
     <string name="check_network">Check network</string>
+    <string name="send_statistic">Send statistic</string>
 </resources>
