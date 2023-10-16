@@ -7,14 +7,25 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.future.await
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import java.util.concurrent.CompletableFuture
 
-class TestNetwork(context: Context) {
+class TestLTENetworkAvailable(context: Context) {
+    companion object {
+        const val TEST_DURATION = 2000
+        const val STOP_TEST_DELAY = 1000L
+    }
+
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var connectivityManager: ConnectivityManager? = null
     private val request = NetworkRequest.Builder()
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR).build()
-    private val logsBuffer = StringBuilder()
+
+    private val lock = Mutex()
+    private var feature: CompletableFuture<LTEStatus>? = null
 
     init {
         connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -22,12 +33,14 @@ class TestNetwork(context: Context) {
 
     private val networkCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-
+            feature?.complete(LTEStatus.AVAILABLE)
+            lock.unlock()
             unregisterNetworkCallback()
         }
 
         override fun onUnavailable() {
-
+            feature?.complete(LTEStatus.UNAVAILABLE)
+            lock.unlock()
             unregisterNetworkCallback()
         }
     }
@@ -42,4 +55,30 @@ class TestNetwork(context: Context) {
         }
     }
 
+    suspend fun startTestNetwork(): LTEStatus? {
+        lock.lock()
+        feature = CompletableFuture<LTEStatus>()
+
+        startTestWatchDog()
+
+        connectivityManager?.requestNetwork(request, networkCallback, TEST_DURATION)
+        return feature?.await()
+    }
+
+    private fun startTestWatchDog() {
+        coroutineScope.launch {
+            delay(TEST_DURATION + STOP_TEST_DELAY)
+            feature?.let {
+                if (!it.isDone) {
+                    it.complete(LTEStatus.EXCEPTIONALLY)
+                }
+            }
+        }
+    }
+
+}
+
+
+enum class LTEStatus {
+    AVAILABLE, UNAVAILABLE, EXCEPTIONALLY
 }

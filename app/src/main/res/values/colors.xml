@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#707070</color>
     <color name="primary_light">#9966ea</color>
+
+    <color name="test_ok">#4DCFC0</color>
+    <color name="test_failed">#E52B67</color>
 </resources>

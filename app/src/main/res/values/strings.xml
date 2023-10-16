@@ -11,4 +11,6 @@
     <string name="reset_test">Reset test</string>
     <string name="send_statistic">Send statistic</string>
     <string name="not_tested">Not tested</string>
+    <string name="test_passed">OK</string>
+    <string name="test_failed">Error</string>
 </resources>
