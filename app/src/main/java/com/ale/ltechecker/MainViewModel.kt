@@ -25,6 +25,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     suspend fun checkLTENetworkAvailable() = withContext(Dispatchers.IO)  {
         test.startTestNetwork() == LTEStatus.AVAILABLE
-        return@withContext true
+        return@withContext false
     }
 }

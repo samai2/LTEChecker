@@ -21,7 +21,7 @@
 
     <style name="Buttons.Indicator">
         <item name="android:clickable">false</item>
-        <item name="android:backgroundTint">?attr/colorError</item>
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
         <item name="android:textSize">18sp</item>
     </style>
 </resources>

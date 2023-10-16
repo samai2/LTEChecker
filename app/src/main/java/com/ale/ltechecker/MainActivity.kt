@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         val (text, color) = when (result) {
             NEW -> R.string.not_tested to com.google.android.material.R.attr.colorSecondary
             FAILED -> R.string.test_failed to R.attr.colorError
-            PASSED -> R.string.test_passed to R.attr.colourInfoText
+            PASSED -> R.string.test_passed to R.attr.colorSuccess
         }
         binding?.testResult?.text = ContextCompat.getString(this@MainActivity, text)
 
