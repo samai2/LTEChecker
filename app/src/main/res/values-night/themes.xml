@@ -1,7 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.LTEChecker" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.LTEChecker.DayLayt" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorSecondary">@color/gray</item>
+        <item name="colorError">@color/read</item>
+        <item name="colorSuccess">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colourInfoText">@color/gray</item>
     </style>
 </resources>

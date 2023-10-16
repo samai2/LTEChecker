@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LTE_attrs">
+        <attr name="colorSuccess" format="color|reference" />
+        <attr name="colorError" format="color|reference" />
+        <attr name="colourInfoText" format="color|reference" />
+    </declare-styleable>
+</resources>

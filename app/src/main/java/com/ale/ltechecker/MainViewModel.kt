@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.CreationExtras
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
     companion object {
@@ -21,8 +23,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val test = TestLTENetworkAvailable(app)
 
-    suspend fun checkLTENetworkAvailable(): Boolean {
+    suspend fun checkLTENetworkAvailable() = withContext(Dispatchers.IO)  {
         test.startTestNetwork() == LTEStatus.AVAILABLE
-        return false
+        return@withContext true
     }
 }
