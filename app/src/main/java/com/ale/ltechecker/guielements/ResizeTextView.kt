@@ -20,7 +20,6 @@ class ResizeTextView(context: Context, attrs: AttributeSet) : AppCompatTextView(
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         resizeText()
     }
-
     private fun resizeText() {
         if (width == 0) return
         setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
@@ -33,3 +32,4 @@ class ResizeTextView(context: Context, attrs: AttributeSet) : AppCompatTextView(
         }
     }
 }
+

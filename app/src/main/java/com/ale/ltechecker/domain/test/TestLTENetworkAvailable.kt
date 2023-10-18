@@ -1,4 +1,4 @@
-package com.ale.ltechecker
+package com.ale.ltechecker.domain.test
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -25,7 +25,7 @@ class TestLTENetworkAvailable(context: Context) {
         .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR).build()
 
     private val lock = Mutex()
-    private var feature: CompletableFuture<LTEStatus>? = null
+    private var feature: CompletableFuture<LTETestStatus>? = null
 
     init {
         connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -33,13 +33,13 @@ class TestLTENetworkAvailable(context: Context) {
 
     private val networkCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            feature?.complete(LTEStatus.AVAILABLE)
+            feature?.complete(LTETestStatus.AVAILABLE)
             lock.unlock()
             unregisterNetworkCallback()
         }
 
         override fun onUnavailable() {
-            feature?.complete(LTEStatus.UNAVAILABLE)
+            feature?.complete(LTETestStatus.UNAVAILABLE)
             lock.unlock()
             unregisterNetworkCallback()
         }
@@ -55,9 +55,9 @@ class TestLTENetworkAvailable(context: Context) {
         }
     }
 
-    suspend fun startTestNetwork(): LTEStatus? {
+    suspend fun startTestNetwork(): LTETestStatus? {
         lock.lock()
-        feature = CompletableFuture<LTEStatus>()
+        feature = CompletableFuture<LTETestStatus>()
 
         startTestWatchDog()
 
@@ -70,7 +70,7 @@ class TestLTENetworkAvailable(context: Context) {
             delay(TEST_DURATION + STOP_TEST_DELAY)
             feature?.let {
                 if (!it.isDone) {
-                    it.complete(LTEStatus.EXCEPTIONALLY)
+                    it.complete(LTETestStatus.EXCEPTIONALLY)
                 }
             }
         }
@@ -79,6 +79,6 @@ class TestLTENetworkAvailable(context: Context) {
 }
 
 
-enum class LTEStatus {
+enum class LTETestStatus {
     AVAILABLE, UNAVAILABLE, EXCEPTIONALLY
 }

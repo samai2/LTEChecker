@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    tools:context=".MainActivity">
+    android:padding="10dp"
+    tools:context=".ui.MainActivity">
 
     <Button
         android:id="@+id/clear_test_data"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mobil_data_hint"
-        android:text="@string/send_statistic"
+        android:text="@string/send_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/testResult" />
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/mobil_data_title"
         android:layout_below="@id/instruction"
-        android:text="@string/disabled"
+        android:text="@string/unknown"
         app:layout_constraintBottom_toTopOf="@+id/mobil_data_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -121,7 +121,7 @@
         android:layout_above="@id/check_network"
         android:layout_below="@id/wifiHint"
         android:layout_alignParentEnd="true"
-        android:text="@string/disabled"
+        android:text="@string/unknown"
         app:layout_constraintBottom_toBottomOf="@+id/mobil_data_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
