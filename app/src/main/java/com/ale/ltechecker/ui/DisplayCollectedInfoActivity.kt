@@ -10,9 +10,11 @@ import com.ale.ltechecker.domain.phoneInfo.PhoneInfo
 
 class DisplayCollectedInfoActivity : AppCompatActivity() {
     companion object {
-        fun getIntent(context: Context): Intent {
+        private const val TEXT_RESULT_EXTRA = "test_result"
+        fun getIntent(context: Context, isTestPassed: Boolean): Intent {
             return Intent(context, DisplayCollectedInfoActivity::class.java).apply {
                 setPackage(BuildConfig.APPLICATION_ID)
+                putExtra(TEXT_RESULT_EXTRA, isTestPassed)
             }
         }
     }
@@ -22,7 +24,8 @@ class DisplayCollectedInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val infoBinding = ActivityDisplayCollectedInfoBinding.inflate(layoutInflater)
         binding = infoBinding
-        displayInfoToSend(false)
+        val isTestPassed = intent.getBooleanExtra(TEXT_RESULT_EXTRA, false)
+        displayInfoToSend(isTestPassed)
         setContentView(infoBinding.root)
     }
 

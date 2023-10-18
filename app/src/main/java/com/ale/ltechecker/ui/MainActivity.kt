@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.sendStatistic?.setOnClickListener {
-            val displayInfoIntent = DisplayCollectedInfoActivity.getIntent(this)
+            val displayInfoIntent = DisplayCollectedInfoActivity.getIntent(this, true)
             startActivity(displayInfoIntent)
         }
     }
