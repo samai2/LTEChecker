@@ -48,24 +48,55 @@ class MainActivity : AppCompatActivity() {
                     }
                     val result = if (viewModel.checkLTENetworkAvailable()) PASSED else FAILED
                     displayTestResult(result)
+                    buttonSendStatisticEnabled(true)
                 }
             }
         }
 
-        binding?.sendStatistic?.setOnClickListener {
-            val displayInfoIntent = DisplayCollectedInfoActivity.getIntent(this, true)
-            startActivity(displayInfoIntent)
-        }
+
     }
+
 
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         binding?.clearTestData?.setOnClickListener {
             lifecycleScope.launch {
                 displayTestResult(NEW)
+                viewModel.refreshPhoneStateInfo()
+                buttonSendStatisticEnabled(false)
             }
         }
 
+
+        setupSendInfoButton()
+
+        displayNetworkStatus()
+
+        return super.onCreateView(name, context, attrs)
+    }
+
+    private fun setupSendInfoButton() {
+        binding?.sendStatistic?.setOnClickListener {
+            viewModel.isTestPassed?.let {
+                val displayInfoIntent = DisplayCollectedInfoActivity.getIntent(this, it)
+                startActivity(displayInfoIntent)
+            }
+        }
+        buttonSendStatisticEnabled(false)
+    }
+
+    private fun buttonSendStatisticEnabled(isEnabled : Boolean) {
+        if(isEnabled) {
+            binding?.sendStatistic?.isClickable = true
+            binding?.sendStatistic?.background?.alpha = 100
+        }else {
+            binding?.sendStatistic?.isClickable = false
+            binding?.sendStatistic?.background?.alpha = 45
+        }
+
+    }
+
+    private fun displayNetworkStatus() {
         observeLTEStatus()
 
         if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PERMISSION_GRANTED) {
@@ -73,7 +104,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             requestPermission()
         }
-        return super.onCreateView(name, context, attrs)
     }
 
     @SuppressLint("SetTextI18n")
@@ -105,6 +135,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 
     private fun observeWiFiStatus() {

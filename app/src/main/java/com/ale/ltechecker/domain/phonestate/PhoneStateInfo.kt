@@ -6,10 +6,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PhoneStateInfo(context: Context) {
 
-    val observNetworkCnahged = CoroutineScope(Dispatchers.IO)
+    private val observeNetworkChanged = CoroutineScope(Dispatchers.IO)
     private val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
     private val networkChangedCallback = NetworkChangedCallback()
 
@@ -21,14 +22,17 @@ class PhoneStateInfo(context: Context) {
 
 
     init {
+
         connectivityManager.registerDefaultNetworkCallback(networkChangedCallback)
-        observNetworkCnahged.launch {
+        observeNetworkChanged.launch {
             networkChangedCallback.networkChangeEvents.collect {
-                launch { wifiStatus.emit(wifiChecker.getWiFiStatus()) }
-                launch { lteTestStatus.emit(lteChecker.checkLTEState()) }
+                refreshPhoneStateInfo()
             }
         }
     }
 
-
+    suspend fun refreshPhoneStateInfo() = withContext(Dispatchers.IO) {
+        launch { wifiStatus.emit(wifiChecker.getWiFiStatus()) }
+        launch { lteTestStatus.emit(lteChecker.checkLTEState()) }
+    }
 }

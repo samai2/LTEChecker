@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ale.ltechecker.BuildConfig
 import com.ale.ltechecker.databinding.ActivityDisplayCollectedInfoBinding
 import com.ale.ltechecker.domain.phoneInfo.PhoneInfo
+import java.net.URI
+import kotlin.io.path.Path
+import kotlin.io.path.writeText
 
 class DisplayCollectedInfoActivity : AppCompatActivity() {
     companion object {
@@ -30,13 +33,20 @@ class DisplayCollectedInfoActivity : AppCompatActivity() {
     }
 
 
+
     private fun displayInfoToSend(isTestPassed: Boolean) {
         val phoneInfo = PhoneInfo()
         val infoToSend = """
-            TEST RESULT : $isTestPassed
-            ----- PHONE INFO----
-            ${phoneInfo.collectPhoneInfo()}
+            ${phoneInfo.collectPhoneInfo(isTestPassed)}
         """.trimIndent()
         binding?.displayInfo?.text = infoToSend
+    }
+
+    fun sentInfo(jsonText: String) : URI? {
+        val pathToCacheFile = externalCacheDir?.absolutePath ?: return null
+        val infoFile = Path(pathToCacheFile, "report.json")
+        infoFile.writeText(jsonText)
+        return infoFile.toUri()
+
     }
 }

@@ -28,6 +28,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    var isTestPassed : Boolean? = null
+
     private val phoneConnectionsInfo = PhoneStateInfo(app)
 
     val wifiState: MutableStateFlow<WIFIState>
@@ -36,10 +38,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val lteState: MutableStateFlow<LTEState>
         get() = phoneConnectionsInfo.lteTestStatus
 
+    suspend fun refreshPhoneStateInfo(){
+        phoneConnectionsInfo.refreshPhoneStateInfo()
+    }
+
     private val test = TestLTENetworkAvailable(app)
 
     suspend fun checkLTENetworkAvailable() = withContext(Dispatchers.IO) {
-        test.startTestNetwork() == LTETestStatus.AVAILABLE
+        isTestPassed = test.startTestNetwork() == LTETestStatus.AVAILABLE
         return@withContext false
     }
 }

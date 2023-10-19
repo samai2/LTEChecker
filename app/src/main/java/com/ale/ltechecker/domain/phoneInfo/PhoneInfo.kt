@@ -5,8 +5,9 @@ import org.json.JSONObject
 
 class PhoneInfo {
 
-    fun collectPhoneInfo() : String{
+    fun collectPhoneInfo(testResult : Boolean) : String{
         val phoneInfoJSON = JSONObject()
+        phoneInfoJSON.put("TEST",testResult)
         phoneInfoJSON.put("BOARD",Build.BOARD)
         phoneInfoJSON.put("BRAND",Build.BRAND)
         phoneInfoJSON.put("MODEL",Build.MODEL)
