@@ -30,12 +30,18 @@ class PhoneInfo {
             phoneInfoJSON.put("ODM_SKU", Build.ODM_SKU)
         }
         phoneInfoJSON.put("RADIO", Build.getRadioVersion() ?: "")
+        phoneInfoJSON.put("SUPPORTED_ABIS", Build.SUPPORTED_ABIS)
+        phoneInfoJSON.put("TAGS", Build.TAGS)
+
         phoneInfoJSON.put("VERSION.CODENAME", Build.VERSION.CODENAME)
         phoneInfoJSON.put("VERSION.SDK_INT", Build.VERSION.SDK_INT)
         phoneInfoJSON.put("VERSION.RELEASE", Build.VERSION.RELEASE)
         phoneInfoJSON.put("VERSION.INCREMENTAL", Build.VERSION.INCREMENTAL)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             phoneInfoJSON.put("VERSION.MEDIA_PERFORMANCE_CLASS", Build.VERSION.MEDIA_PERFORMANCE_CLASS)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            phoneInfoJSON.put("VERSION.RELEASE_OR_CODENAMET", Build.VERSION.RELEASE_OR_CODENAME)
         }
         phoneInfoJSON.put("VERSION.PREVIEW_SDK_INT", Build.VERSION.PREVIEW_SDK_INT)
         phoneInfoJSON.put("VERSION.SECURITY_PATCH", Build.VERSION.SECURITY_PATCH)
