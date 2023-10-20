@@ -56,6 +56,7 @@ class DisplayCollectedInfoActivity : AppCompatActivity() {
                         this, this@DisplayCollectedInfoActivity.getString(R.string.choose_email_client)
                     )
                 )
+                finish()
             }
         }
     }

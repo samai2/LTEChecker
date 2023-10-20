@@ -10,9 +10,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.ale.ltechecker.BuildConfig
 import com.ale.ltechecker.R
 import com.ale.ltechecker.databinding.ActivityMainBinding
@@ -50,14 +48,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupCheckNetworkButton() {
         binding?.checkNetwork?.setOnClickListener {
             lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    withContext(Dispatchers.Main.immediate) {
-                        binding?.progressBar?.visibility = View.VISIBLE
-                    }
-                    val result = if (viewModel.checkLTENetworkAvailable()) PASSED else FAILED
-                    displayTestResult(result)
-                    buttonSendStatisticEnabled(true)
+                withContext(Dispatchers.Main.immediate) {
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
+                val result = if (viewModel.checkLTENetworkAvailable()) PASSED else FAILED
+                displayTestResult(result)
+                buttonSendStatisticEnabled(true)
             }
         }
     }
@@ -82,11 +78,11 @@ class MainActivity : AppCompatActivity() {
         buttonSendStatisticEnabled(false)
     }
 
-    private fun buttonSendStatisticEnabled(isEnabled : Boolean) {
-        if(isEnabled) {
+    private fun buttonSendStatisticEnabled(isEnabled: Boolean) {
+        if (isEnabled) {
             binding?.sendStatistic?.isClickable = true
             binding?.sendStatistic?.background?.alpha = 255
-        }else {
+        } else {
             binding?.sendStatistic?.isClickable = false
             binding?.sendStatistic?.background?.alpha = 45
         }
@@ -131,8 +127,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
 
     private fun observeWiFiStatus() {
