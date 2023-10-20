@@ -2,12 +2,10 @@ package com.ale.ltechecker.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ale.ltechecker.BuildConfig
 import com.ale.ltechecker.R
-import com.ale.ltechecker.ui.TestResult.*
 import com.ale.ltechecker.databinding.ActivityMainBinding
 import com.ale.ltechecker.domain.phonestate.LTEState
 import com.ale.ltechecker.domain.phonestate.WIFIState
+import com.ale.ltechecker.ui.TestResult.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,6 +38,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
         setUpAppTitle()
 
+        setupCheckNetworkButton()
+
+        setupClearTestButton()
+
+        setupSendInfoButton()
+
+        displayNetworkStatus()
+    }
+
+    private fun setupCheckNetworkButton() {
         binding?.checkNetwork?.setOnClickListener {
             lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -52,13 +60,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
-
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+    private fun setupClearTestButton() {
         binding?.clearTestData?.setOnClickListener {
             lifecycleScope.launch {
                 displayTestResult(NEW)
@@ -66,13 +70,6 @@ class MainActivity : AppCompatActivity() {
                 buttonSendStatisticEnabled(false)
             }
         }
-
-
-        setupSendInfoButton()
-
-        displayNetworkStatus()
-
-        return super.onCreateView(name, context, attrs)
     }
 
     private fun setupSendInfoButton() {
@@ -88,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     private fun buttonSendStatisticEnabled(isEnabled : Boolean) {
         if(isEnabled) {
             binding?.sendStatistic?.isClickable = true
-            binding?.sendStatistic?.background?.alpha = 100
+            binding?.sendStatistic?.background?.alpha = 255
         }else {
             binding?.sendStatistic?.isClickable = false
             binding?.sendStatistic?.background?.alpha = 45
@@ -98,7 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayNetworkStatus() {
         observeLTEStatus()
-
         if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PERMISSION_GRANTED) {
             observeWiFiStatus()
         } else {
