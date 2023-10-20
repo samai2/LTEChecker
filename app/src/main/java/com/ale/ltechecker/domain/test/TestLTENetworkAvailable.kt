@@ -70,7 +70,7 @@ class TestLTENetworkAvailable(context: Context) {
             delay(TEST_DURATION + STOP_TEST_DELAY)
             feature?.let {
                 if (!it.isDone) {
-                    it.complete(LTETestStatus.EXCEPTIONALLY)
+                    it.complete(LTETestStatus.UNAVAILABLE)
                 }
             }
         }
@@ -80,5 +80,5 @@ class TestLTENetworkAvailable(context: Context) {
 
 
 enum class LTETestStatus {
-    AVAILABLE, UNAVAILABLE, EXCEPTIONALLY
+    AVAILABLE, UNAVAILABLE,
 }

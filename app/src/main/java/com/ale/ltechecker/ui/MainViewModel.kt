@@ -28,7 +28,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    var isTestPassed : Boolean? = null
+    var isTestPassed: Boolean? = null
 
     private val phoneConnectionsInfo = PhoneStateInfo(app)
 
@@ -38,7 +38,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val lteState: MutableStateFlow<LTEState>
         get() = phoneConnectionsInfo.lteTestStatus
 
-    suspend fun refreshPhoneStateInfo(){
+    suspend fun refreshPhoneStateInfo() {
         phoneConnectionsInfo.refreshPhoneStateInfo()
     }
 
@@ -46,6 +46,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     suspend fun checkLTENetworkAvailable() = withContext(Dispatchers.IO) {
         isTestPassed = test.startTestNetwork() == LTETestStatus.AVAILABLE
-        return@withContext false
+        return@withContext isTestPassed ?: false
     }
 }
