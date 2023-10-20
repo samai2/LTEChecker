@@ -43,6 +43,26 @@ class MainActivity : AppCompatActivity() {
         setupSendInfoButton()
 
         displayNetworkStatus()
+
+        observePhoneStatus()
+    }
+
+    private fun observePhoneStatus() {
+        lifecycleScope.launch {
+            viewModel.isCheckNetworkButtonEnabled.collect {
+                enableTestButton(it)
+            }
+        }
+    }
+
+    private fun enableTestButton(enable: Boolean) {
+        if (enable) {
+            binding?.checkNetwork?.isClickable = true
+            binding?.checkNetwork?.background?.alpha = 255
+        } else {
+            binding?.checkNetwork?.isClickable = false
+            binding?.checkNetwork?.background?.alpha = 45
+        }
     }
 
     private fun setupCheckNetworkButton() {
@@ -86,8 +106,8 @@ class MainActivity : AppCompatActivity() {
             binding?.sendStatistic?.isClickable = false
             binding?.sendStatistic?.background?.alpha = 45
         }
-
     }
+
 
     private fun displayNetworkStatus() {
         observeLTEStatus()
@@ -144,6 +164,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun observeLTEStatus() {
         lifecycleScope.launch(Dispatchers.IO) {

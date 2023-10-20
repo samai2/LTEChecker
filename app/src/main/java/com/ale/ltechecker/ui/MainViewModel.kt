@@ -12,7 +12,9 @@ import com.ale.ltechecker.domain.phonestate.LTEState
 import com.ale.ltechecker.domain.phonestate.PhoneStateInfo
 import com.ale.ltechecker.domain.phonestate.WIFIState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
 
 
@@ -37,6 +39,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     val lteState: MutableStateFlow<LTEState>
         get() = phoneConnectionsInfo.lteTestStatus
+
+    val isCheckNetworkButtonEnabled: Flow<Boolean>
+        get() = wifiState.combine(lteState) { a: WIFIState, b: LTEState ->
+            a == WIFIState.ENABLED && b == LTEState.ENABLED
+        }
 
     suspend fun refreshPhoneStateInfo() {
         phoneConnectionsInfo.refreshPhoneStateInfo()
